@@ -1,0 +1,32 @@
+.itemMesin {
+    width: 363px;
+    height: 100px;
+    border-radius: 5%;
+    border-color: gray;
+    flex-direction: row;
+}
+.itemMesin .leftSide {
+    width: 100px;
+    height: fit-content;
+    border-top-left-radius: 5%;
+    border-bottom-left-radius: 5%;
+}
+.itemMesin .rightSide {
+    width: 263px;
+    height: fit-content;
+}
+.itemMesin .rightSide h3 {
+    width: fit-content;
+    height: fit-content;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: left;
+}
+.itemMesin .rightSide p {
+    width: fit-content;
+    color: black;
+    font-size: 13px;
+    font-style: normal;
+    text-align: left ;
+}

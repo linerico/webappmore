@@ -1,0 +1,26 @@
+.itemPabrik {
+    width: 393px;
+    height: 252px;
+    border-radius: 5%;
+    border-color: gray;
+}
+.itemPabrik .Foto {
+    width: fit-content;
+    height: 178px;
+    border-top-left-radius: 5%;
+    border-top-right-radius: 5%;
+}
+.itemPabrik h1 {
+    width: fit-content;
+    color: black;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+}
+.itemPabrik p {
+    width: fit-content;
+    color: gray;
+    font-size: 11px;
+    font-style: normal;
+    text-align: center;
+}

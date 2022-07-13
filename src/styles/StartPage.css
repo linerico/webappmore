@@ -1,0 +1,12 @@
+.leftSide {
+    color: #1DA0FF;
+}
+
+.leftSide,.img-side{
+    height: 100vh;
+}
+
+.rightSide {
+    display: flex;
+    justify-content: center;
+}

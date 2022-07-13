@@ -1,0 +1,38 @@
+.person {
+    width: 309px;
+    height: 60px;
+    border-radius: 5%;
+    border-color: gray;
+}
+
+.person .leftSide {
+    width: 50px;
+    height: fit-content;
+    align-content: center;
+}
+
+.person .center {
+    width: 190px;
+    height: fit-content;
+}
+
+.person .center h3 {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.person .center p {
+    font-size: 14px;
+    text-align: left;
+}
+
+.person .rightSide {
+    width: auto;
+    height: fit-content;
+}
+
+.person .rightSide img {
+    width: 15px;
+    height: 15px;
+}

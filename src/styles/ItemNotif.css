@@ -1,0 +1,35 @@
+.itemNotifikasi {
+    width: 608px;
+    height: 89px;
+    border-radius: 5%;
+    border-color: gray;
+}
+
+.itemNotifikasi .leftSide {
+    width: 50px;
+    height: fit-content;
+    align-content: center;
+}
+
+.itemNotifikasi .rightSide {
+    width: auto;
+    height: fit-content;
+}
+
+.itemNotifikasi .rightSide h3 {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.itemNotifikasi .rightSide h4 {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.itemNotifikasi .rightSide p {
+    font-size: 13px;
+    font-style: normal;
+    text-align: left ;
+}

@@ -1,0 +1,49 @@
+.monitorItem {
+    width: 170px;
+    height: 190px;
+    border-radius: 5%;
+    border-color: gray;
+}
+
+.monitorItem img {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.monitorItem .isiData h1 {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 56px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.monitorItem .keterangan h3 {
+    position: absolute;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+}
+
+.monitorItem .keterangan h4 {
+    position: absolute;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+}
