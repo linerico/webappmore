@@ -11,7 +11,7 @@ import UbahMemberModal from './modal/ubahMemberModal'
 import HapusMemberModal from './modal/hapusMemberModal'
 import axios from 'axios'
 
-const baseUrl = 'http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
+const baseUrl = 'https://cors-everywhere.herokuapp.com/http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
 const noImg = 'https://more-app-bucket.s3.ap-southeast-1.amazonaws.com/noimg.jpg'
 
 const NavbarHeader = (props) => {

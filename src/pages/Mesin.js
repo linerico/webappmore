@@ -6,7 +6,7 @@ import { Link, Router, useHistory, useParams } from 'react-router-dom';
 import NavbarHeader from '../components/navbarHeader.js';
 import axios from 'axios'
 
-const baseUrl = 'http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
+const baseUrl = 'https://cors-everywhere.herokuapp.com/http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
 
 
 export default function Mesin() {

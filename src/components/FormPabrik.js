@@ -3,7 +3,7 @@ import { Link, Router, useHistory } from 'react-router-dom';
 import axios from 'axios'
 const FormData = require('form-data');
 
-const baseUrl = 'http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
+const baseUrl = 'https://cors-everywhere.herokuapp.com/http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
 
 const FormPabrik = ({create, nama, alamat, kabKota, provinsi, peta, foto}) => {
   const router = useHistory()

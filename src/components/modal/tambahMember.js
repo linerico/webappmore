@@ -2,7 +2,7 @@ import Modal from 'react-bootstrap/Modal';
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-const baseUrl = 'http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
+const baseUrl = 'https://cors-everywhere.herokuapp.com/http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
 
 function TambahMemberModal(props) {
 

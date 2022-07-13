@@ -6,7 +6,7 @@ import { NotifList } from '../helpers/NotificationList';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 
-const baseUrl = 'http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
+const baseUrl = 'https://cors-everywhere.herokuapp.com/http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
 
 const Notification = () => {
   const [notif, setNotif] = useState([])

@@ -4,7 +4,7 @@ import { Link, useHistory, Redirect } from 'react-router-dom';
 import "../styles/StartPage.css";
 import axios from 'axios'
 
-const baseUrl = ' https://cors-everywhere.herokuapp.com/http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
+const baseUrl = 'https://cors-everywhere.herokuapp.com/http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
 
 //login udah connect ke api
 

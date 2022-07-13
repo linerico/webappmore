@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios'
 import "../styles/NavBar.css";
 
-const baseUrl = 'http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
+const baseUrl = 'https://cors-everywhere.herokuapp.com/http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
 
 const NavBar = () => {
     const [nama, setnama] = useState("")

@@ -4,7 +4,7 @@ import { AuthContext } from "../context/auth"
 // import {Logo} from '../assets/logo.jpeg';
 import { Link, useHistory } from 'react-router-dom';
 
-const baseUrl = 'http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
+const baseUrl = 'https://cors-everywhere.herokuapp.com/http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
 
 function Verification() {
   const { isAuthenticated, loginSuccess, loginFailed } = useContext(AuthContext)
