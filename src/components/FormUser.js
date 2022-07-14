@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useContext, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { AuthContext } from "../context/auth"
 import UbahNamaProfilModal from './UbahNamaProfilModal';
 import axios from 'axios'
@@ -9,6 +9,7 @@ const FormData = require('form-data');
 const baseUrl = 'https://cors-everywhere.herokuapp.com/http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
 
 function FormUser() {
+  const router = useHistory()
   const { logout } = useContext(AuthContext)
   const [nama, setNama] = useState("")
   const [email, setEmail] = useState("")
@@ -63,7 +64,7 @@ function FormUser() {
 
   const btnLogout = () => {
     logout()
-
+    router.push("/")
   }
 
   useEffect(() => {
@@ -126,7 +127,7 @@ function FormUser() {
             noTlpn={noTlpn}
           />
 
-          <button className='form-control rounded-pill mt-5 btn btn-danger fw-bold' onClick={logout}>KELUAR</button>
+          <button className='form-control rounded-pill mt-5 btn btn-danger fw-bold' onClick={()=> btnLogout()}>KELUAR</button>
 
           {/* <Link to='/'>
             <button className='form-control rounded-pill mt-5 btn btn-danger fw-bold'>KELUAR</button>

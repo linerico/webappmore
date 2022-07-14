@@ -43,7 +43,7 @@ function Verification() {
   return (
     <div className='verification d-flex'>
       <div className='leftSide'>
-        <img src='/assets/logo.jpeg' className='w-full img-side' />
+        <img src='https://more-app-bucket.s3.ap-southeast-1.amazonaws.com/logo.jpeg' className='w-full img-side' />
       </div>
       <div className='rightSide w-100'>
         <div className='mt-5 p-3 w-75'>

@@ -196,7 +196,16 @@ const NavbarHeader = (props) => {
                         <div className='w-100 text-end'>
                             <button
                                 className='btn btn-sm btn-primary rounded-pill ms-2'
-                                onClick={() => router.push('/ubah-mesin')}
+                                onClick={() => router.push({
+                                    pathname: '/ubah-mesin',
+                                    state:{
+                                        nama: mesin.nama_mesin,
+                                        tipe: mesin.tipe_mesin,
+                                        merek: mesin.merek_mesin,
+                                        foto: mesin.gambar_mesin
+
+                                    }
+                                })}
                             >
                                 <img src='/assets/Edit.png' width={'20px'} /> Ubah
                             </button>

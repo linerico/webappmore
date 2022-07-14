@@ -44,7 +44,7 @@ const NavBar = () => {
     return (
         <div className='navbar'>
             <div className='leftSide'>
-                <Link to="/pabrik"><img src={'/assets/logo.jpeg'} /></Link>
+                <Link to="/pabrik"><img src={'https://more-app-bucket.s3.ap-southeast-1.amazonaws.com/logo.jpeg'} /></Link>
             </div>
             <div className='rightSide'>
                 <Link to="/profile">{nama}</Link>

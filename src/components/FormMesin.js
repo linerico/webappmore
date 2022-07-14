@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 const FormData = require('form-data');
@@ -13,10 +13,36 @@ const FormMesin = ({idPabrik, create, nama, tipe, merek, foto}) => {
     const [ffoto, setFoto] = useState()
     const [error, setError] = useState("")
     const [isError, setIsError] = useState(false)
+    const [fileName, setFileName] = useState("")
+    const [newFoto, setNewFoto] = useState()
 
     const token = localStorage.getItem("accessToken")
     const activePabrik = localStorage.getItem("activePabrik")
+    const activeMesin = localStorage.getItem("activeMesin")
+    const setEdit = () => {
+        console.log(idPabrik, create, nama, tipe, merek, foto)
+        if(!create){
+            setNama(nama)
+            setTipe(tipe)
+            setMerek(merek)
+            try{
+                setFileName(foto.split('/')[5])
+            } catch{
+                
+            }
+        }
+    } 
 
+    const addNewFoto = (e) => {
+        if(create){
+            setFoto(e.target.files[0])
+            setFileName(e.target.files[0].name)
+        }else{
+            setNewFoto(e.target.files[0])
+            setFileName(e.target.files[0].name)
+        }
+        
+    }
     const addMesin = async() => {
         const formData = new FormData()
         if(fnama!=""){formData.append("nama_mesin", fnama)}
@@ -46,6 +72,38 @@ const FormMesin = ({idPabrik, create, nama, tipe, merek, foto}) => {
         }
     }
 
+    const ubahMesin = async() => {
+        const formData = new FormData()
+        if(fnama!=""){formData.append("nama_mesin", fnama)}
+        if(ftipe!=""){formData.append("tipe_mesin", ftipe)}
+        if(fmerek!=""){formData.append("merek_mesin", fmerek)}
+        if(newFoto != undefined){
+            formData.append("gambar_mesin", newFoto, newFoto.name)
+        }
+        try{
+            const res = await axios.put(`${baseUrl}/pabrik/${activePabrik}/mesin/${activeMesin}`, formData, {
+                headers: {
+                    'Accept': `*/*`,
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': `multipart/form-data`
+                }
+            })
+            router.push(`/pabrik/${activePabrik}`)
+        } catch(err){
+            console.log(err.message.data.message)
+            setIsError(true)
+            setError(err.messag.data.messagee)
+            setTimeout(() => {
+                setIsError(false)
+                setError("")
+            }, 2000)
+        }
+    }
+
+    useEffect(()=> {
+        setEdit()
+    }, [])
+
     return (
         <div className='formMesin w-75 mx-auto'>
             
@@ -73,7 +131,19 @@ const FormMesin = ({idPabrik, create, nama, tipe, merek, foto}) => {
                 <div className='row mt-3'>
                     <p className='col-4'>Foto Mesin</p>
                     <div className='col-8'>
-                        <input className='form-control rounded-pill' name='fotoMesin' type='file' onChange={(e) => setFoto(e.target.files[0])}/>
+                        {/* <input className='form-control rounded-pill' name='fotoMesin' type='file' onChange={(e) => setFoto(e.target.files[0])}/> */}
+                        <input value={fileName} className='form-control' name='fotoMesin' type='text' style={{
+                            width:"82%",
+                            display: "inline",
+                            borderRadius:"50px 00px 0px 50px"
+                        }}/>
+                        <input className='form-control' name='inputMesin' type='file' onChange = {(e) => {
+                            addNewFoto(e)
+                        }} style={{
+                            width:"18%",
+                            display: "inline",
+                            borderRadius:"0px 50px 50px 0px"
+                        }}/>
                     </div>
                 </div>
 
@@ -85,7 +155,7 @@ const FormMesin = ({idPabrik, create, nama, tipe, merek, foto}) => {
                 )}
 
                 <div className='text-center mt-5'>
-                    <button className='btn btn-primary w-25 me-3' onClick={create ? addMesin: console.log("Edit")}>{create ? 'TAMBAH' : 'UBAH'}</button>
+                    <button className='btn btn-primary w-25 me-3' onClick={create ? addMesin: ubahMesin}>{create ? 'TAMBAH' : 'UBAH'}</button>
                     <button onClick={()=>router.goBack()} className='btn btn-danger w-25 ms-3'>BATAL</button>
                 </div>
             
