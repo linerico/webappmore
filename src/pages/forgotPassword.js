@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import axios from 'axios';
 
-// const baseUrl = 'https://cors-everywhere.herokuapp.com/http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
-const baseUrl = 'http://localhost:5000'
+const baseUrl = 'https://cors-everywhere.herokuapp.com/http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
+// const baseUrl = 'http://localhost:5000'
 
 const forgotPassword = () => {
   const history = useHistory()
