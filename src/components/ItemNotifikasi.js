@@ -31,7 +31,7 @@ function ItemNotifikasi({ name, location, myNotif }) {
       <div className='rightSide my-auto flex-column p-2 ms-3'>
         <p className='text-start fw-bold mb-0 text-start'>{name}</p>
         <p className='text-start fw-bold mb-0'>{location}</p>
-        <p className='text-start mb-0'>Peringatan terjadi alarm</p>
+        <p className='text-start mb-0'>{myNotif.text}</p>
       </div>
     </div>
   )
