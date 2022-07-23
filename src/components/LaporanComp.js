@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-const baseUrl = 'https://cors-everywhere.herokuapp.com/http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
-
+// const baseUrl = 'https://cors-everywhere.herokuapp.com/http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
+const baseUrl = 'http://127.0.0.1:5000'
 
 function LaporanComp() {
     const token = localStorage.getItem("accessToken")
@@ -11,7 +11,7 @@ function LaporanComp() {
     const [variabel, setVariabel] = useState([])
     const [picVariabel, setPicVariabel] = useState("")
     const [picNo, setPicNo] = useState(0)
-    const [start, setStart] = useState("")
+    const [start, setStart] = useState("") 
     const [stop, setStop] = useState("")
     const [laporan, setLaporan] = useState([])
     const [rapLaporan, setRapLaporan] = useState([])
@@ -39,7 +39,7 @@ function LaporanComp() {
     }
     const convertTimeStamptoDate = (timestamp) => {
         const waktu = new Date(parseInt(timestamp))
-        const myFormat = `${waktu.getDate()}-${waktu.getMonth()}-${waktu.getFullYear()}  ${waktu.getHours()}:${waktu.getMinutes()}:${waktu.getSeconds()}`
+        const myFormat = `${waktu.getDate()}-${waktu.getMonth()+1}-${waktu.getFullYear()}  ${waktu.getHours()}:${waktu.getMinutes()}:${waktu.getSeconds()}`
         return myFormat
     }
     const findIndexLaporan = (mylaporan, variabel) => {
@@ -76,7 +76,10 @@ function LaporanComp() {
     //     setRapLaporan(myLaporan)
     // }
     const getLaporan = async() => {
-        convertTimeStamptoDate(start)
+        // convertTimeStamptoDate(start)
+        setStop(parseInt(stop)+86400000)
+        console.log(start, stop);
+        console.log(parseInt(stop)+86400000)
         const raw = {
             nama: picVariabel,
             start,
@@ -88,13 +91,34 @@ function LaporanComp() {
                     'Authorization': `Bearer ${token}`
                 }
             })
+            console.log(res.data.data.laporan)
             setLaporan(res.data.data.laporan)
             // console.log(res.data.data.laporan)
             const n =findIndexLaporan(laporan[laporan.length-1], raw.nama)
             setPicNo(n)
+            console.log(n)
+            
             // perapian()
         } catch(err) {
-            console.log(err.response)
+            console.log(err)
+            if(err.response.status == 400){
+                const kosong = [{
+                    id_laporan: "",
+                    id_mesin: idMesin,
+                    laporan: [
+                        {
+                            nama: "null",
+                            value: null,
+                            satuan:"null"
+                        }
+                    ],
+                    timestamp: ""
+                }]
+                setLaporan(kosong)
+                setPicNo(0)
+                console.log(kosong)
+            }
+            
         }
     }
 
@@ -142,14 +166,15 @@ function LaporanComp() {
                         </tr>
                     </thead>
                     <tbody>
-                        {
+                        {   
                             laporan.map((row, i) => (
-                                
-                                <tr>
-                                    <th scope='row'>{i+1}</th>
-                                    <td>{convertTimeStamptoDate(row.timestamp)}</td> 
-                                    <td>{`${row.laporan[picNo].value} (${row.laporan[picNo].satuan})`}</td>
-                                </tr>
+                                (row.laporan[picNo].value != undefined) ? 
+                                    <tr>
+                                        <th scope='row'>{i+1}</th>
+                                        <td>{convertTimeStamptoDate(row.timestamp)}</td> 
+                                        <td>{`${row.laporan[picNo].value} (${row.laporan[picNo].satuan})`}</td>
+                                    </tr>
+                                    :<></>
                             ))
                         }
                         {/* <tr>

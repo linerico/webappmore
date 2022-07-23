@@ -3,7 +3,8 @@ import { MonitoringList } from '../helpers/MonitoringList';
 import MonitorItem from './MonitorItem';
 import axios from 'axios'
 
-const baseUrl = 'https://cors-everywhere.herokuapp.com/http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
+// const baseUrl = 'https://cors-everywhere.herokuapp.com/http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
+const baseUrl ='http://127.0.0.1:5000'
 
 
 const PemantauanComp = () => {
@@ -13,23 +14,35 @@ const PemantauanComp = () => {
     const idMesin = localStorage.getItem("activeMesin")
     let myTime
     const getMonitor = async() => {
-        const res = await axios.get(`${baseUrl}/pabrik/${idPabrik}/mesin/${idMesin}/monitor`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        setMonitor(res.data.data.monitor)
+        try{
+            // console.log("Masuk ke get Monitor")
+            const res = await axios.get(`${baseUrl}/pabrik/${idPabrik}/mesin/${idMesin}/monitor`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            setMonitor(res.data.data.monitor)
+        } catch (err) {
+            console.log(err)
+        }
+        
     }
 
-    myTime = () =>{
-        setInterval(()=>{
-            getMonitor()
-        }, 60000);
-    }
-    myTime()
+    // myTime = () =>{
+    //     setInterval(()=>{
+    //         console.log("posisi di interval")
+    //         getMonitor()
+    //     }, 2000);
+    //     return clearInterval()
+    // }
+    // myTime()
 
     useEffect(() => {
-        getMonitor();
+        const interval = setInterval(()=>{
+            console.log("interval di panggil")
+            getMonitor()
+        }, 2000);
+        return () => clearInterval(interval)
     }, [])
 
     return (
