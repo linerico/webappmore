@@ -12,6 +12,7 @@ import HapusMemberModal from './modal/hapusMemberModal'
 import axios from 'axios'
 
 const baseUrl = 'https://cors-everywhere.herokuapp.com/http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
+// const baseUrl = 'http://127.0.0.1:5000'
 const noImg = 'https://more-app-bucket.s3.ap-southeast-1.amazonaws.com/noimg.jpg'
 
 const NavbarHeader = (props) => {
@@ -29,6 +30,7 @@ const NavbarHeader = (props) => {
 
     const [pabrik, setPabrik] = useState({})
     const [mesin, setMesin] = useState({})
+    const [stsMesin, setStsMesin] = useState(false)
 
     const token = localStorage.getItem("accessToken")
 
@@ -74,6 +76,19 @@ const NavbarHeader = (props) => {
         
     }
 
+    const getStatusMesin = async() => {
+        try{
+            const res = await axios.get(`${baseUrl}/pabrik/${homeId}/mesin/${mesinId}/status`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            setStsMesin(res.data.data.online)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     const getDetailMesin = async() => {
         try{
             const res = await axios.get(`${baseUrl}/pabrik/${homeId}/mesin/id/${mesinId}`, {
@@ -91,6 +106,7 @@ const NavbarHeader = (props) => {
     useEffect(() => {
         getDetailPabrik()
         getDetailMesin()
+        getStatusMesin()
     }, [])
 
     return (
@@ -178,7 +194,7 @@ const NavbarHeader = (props) => {
                             />
                         </div>
                         <div className='d-flex' style={{
-                            width:"800px"
+                            width:"1000px"
                         }}>
                             <img
                                 className='rounded-circle'
@@ -186,10 +202,12 @@ const NavbarHeader = (props) => {
                                 width={70}
                                 height={70}
                             />
-                            <div className='px-2'>
+                            <div className='px-2' style={{fontSize: "0.8em"}}>
                                 <p className='mb-0 text-nowrap'>{mesin.nama_mesin}</p>
                                 <p className='mb-0'>Tipe : {mesin.tipe_mesin}</p>
                                 <p className='mb-0'>Merek : {mesin.merek_mesin}</p>
+
+                                <div style={stsMesin?{color: "green"}:{color: "red"}}>{stsMesin? 'ONLINE' : 'OFFLINE' }<button className='btn btn-sm btn-primary rounded-pill my-1' style={{marginLeft:"10px"}} onClick={() => getStatusMesin()}>Refresh</button></div>
                             </div>
                         </div>
 

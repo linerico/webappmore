@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-// const baseUrl = 'https://cors-everywhere.herokuapp.com/http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
-const baseUrl = 'http://127.0.0.1:5000'
+const baseUrl = 'https://cors-everywhere.herokuapp.com/http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
+// const baseUrl = 'http://127.0.0.1:5000'
 
 function LaporanComp() {
     const token = localStorage.getItem("accessToken")
@@ -15,6 +15,7 @@ function LaporanComp() {
     const [stop, setStop] = useState("")
     const [laporan, setLaporan] = useState([])
     const [rapLaporan, setRapLaporan] = useState([])
+    const [nTemp, setNTemp] = useState()
     const getVariabel = async() => {
         const res = await axios.get(`${baseUrl}/pabrik/${idPabrik}/mesin/${idMesin}/laporan`, {
             headers: {
@@ -43,15 +44,15 @@ function LaporanComp() {
         return myFormat
     }
     const findIndexLaporan = (mylaporan, variabel) => {
-        // console.log(mylaporan, variabel)
+        console.log(mylaporan, variabel)
         let myVar = ""
-        if (variabel ==""){
+        if (variabel == ""){
             myVar=mylaporan[0].nama
         } else{
             myVar = variabel
         }
         // console.log(myVar)
-        
+        // console.log(mylaporan)
         const n =mylaporan.laporan.length
         for (let i=0; i< n; i++){
             // console.log(mylaporan.laporan[i].nama, myVar)
@@ -78,8 +79,8 @@ function LaporanComp() {
     const getLaporan = async() => {
         // convertTimeStamptoDate(start)
         setStop(parseInt(stop)+86400000)
-        console.log(start, stop);
-        console.log(parseInt(stop)+86400000)
+        // console.log(start, stop);
+        // console.log(parseInt(stop)+86400000)
         const raw = {
             nama: picVariabel,
             start,
@@ -91,16 +92,20 @@ function LaporanComp() {
                     'Authorization': `Bearer ${token}`
                 }
             })
-            console.log(res.data.data.laporan)
+            // console.log(res.data.data.laporan)
             setLaporan(res.data.data.laporan)
             // console.log(res.data.data.laporan)
-            const n =findIndexLaporan(laporan[laporan.length-1], raw.nama)
+            // console.log(laporan)
+            // console.log("laporan GetLaporan : ", laporan)
+            const n =findIndexLaporan(res.data.data.laporan[res.data.data.laporan.length-1], raw.nama)
+            // console.log(n)
             setPicNo(n)
-            console.log(n)
+            // console.log(n)
             
             // perapian()
         } catch(err) {
             console.log(err)
+
             if(err.response.status == 400){
                 const kosong = [{
                     id_laporan: "",
@@ -160,7 +165,7 @@ function LaporanComp() {
                 <table className="table">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
+                            {/* <th scope="col">#</th> */}
                             <th scope="col">Waktu Pencatatan</th>
                             <th scope="col">Hasil</th>
                         </tr>
@@ -168,9 +173,10 @@ function LaporanComp() {
                     <tbody>
                         {   
                             laporan.map((row, i) => (
+                                
                                 (row.laporan[picNo].value != undefined) ? 
                                     <tr>
-                                        <th scope='row'>{i+1}</th>
+                                        {/* <th scope='row'>{i}</th> */}
                                         <td>{convertTimeStamptoDate(row.timestamp)}</td> 
                                         <td>{`${row.laporan[picNo].value} (${row.laporan[picNo].satuan})`}</td>
                                     </tr>
