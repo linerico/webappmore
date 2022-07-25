@@ -3,8 +3,8 @@ import { MonitoringList } from '../helpers/MonitoringList';
 import MonitorItem from './MonitorItem';
 import axios from 'axios'
 
-// const baseUrl = 'https://cors-everywhere.herokuapp.com/http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
-const baseUrl ='http://127.0.0.1:5000'
+const baseUrl = 'https://cors-everywhere.herokuapp.com/http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
+// const baseUrl ='http://127.0.0.1:5000'
 
 
 const PemantauanComp = () => {
