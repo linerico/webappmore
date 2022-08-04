@@ -9,9 +9,12 @@ const baseUrl = 'https://cors-everywhere.herokuapp.com/http://moreapp-env.eba-ep
 
 const PemantauanComp = () => {
     const [monitor, setMonitor] = useState([])
+    // const [blink, setBlink] = useState(true)
+    const [stsMesin, setStsMesin] = useState(false)
     const token = localStorage.getItem("accessToken")
     const idPabrik = localStorage.getItem("activePabrik")
     const idMesin = localStorage.getItem("activeMesin")
+    var myB = false
     let myTime
     const getMonitor = async() => {
         try{
@@ -27,6 +30,19 @@ const PemantauanComp = () => {
         }
         
     }
+    const getStatusMesin = async() => {
+        try{
+            const res = await axios.get(`${baseUrl}/pabrik/${idPabrik}/mesin/${idMesin}/status`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            setStsMesin(res.data.data.online)
+            console.log("Sts Mesin : ", res.data.data.online)
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     // myTime = () =>{
     //     setInterval(()=>{
@@ -36,33 +52,56 @@ const PemantauanComp = () => {
     //     return clearInterval()
     // }
     // myTime()
+    const myBlink = async() => {
+        if(myB){
+            myB = false
+            localStorage.setItem("blink", false)
+        } else{
+            myB = true
+            localStorage.setItem("blink", true)
+        }
+    }
 
     useEffect(() => {
         const interval = setInterval(()=>{
-            console.log("interval di panggil")
+            // console.log("Blink : ", myB)
+            getStatusMesin()
+            myBlink()
             getMonitor()
-        }, 2000);
+            getStatusMesin()
+            // console.log("Sts Mesis", stsMesin)
+        }, 1000);
         return () => clearInterval(interval)
     }, [])
-
-    return (
-        <div className='monitor d-flex container'>
-            {monitor.map((menuItem, key) => {
-                return (
-                    <MonitorItem
-                        key={key}
-                        data={menuItem.value}
-                        satuan={menuItem.satuan}
-                        ket={menuItem.nama}
-                        alarm={menuItem.alarm} 
-                        enableAlarm ={menuItem.enableAlarm}
-                        fullData={monitor}
-                        index = {key}/>
-                        
-                );
-            })}
-        </div>
-    )
+    if(stsMesin){
+        return (
+            <div className='monitor d-flex container'>
+                {monitor.map((menuItem, key) => {
+                    return (
+                        <MonitorItem
+                            key={key}
+                            data={menuItem.value}
+                            satuan={menuItem.satuan}
+                            ket={menuItem.nama}
+                            alarm={menuItem.alarm} 
+                            enableAlarm ={menuItem.enableAlarm}
+                            fullData={monitor}
+                            index = {key}
+                            ba = {myB}
+                            />
+                            
+                    );
+                })}
+            </div>
+        )
+    } else{
+        return (
+            <div className='monitor d-flex container'>
+                <h1>Mesin Offline</h1>
+            </div>
+        )
+    }
+    
 }
 
 export default PemantauanComp

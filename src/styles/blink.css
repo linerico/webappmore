@@ -1,0 +1,7 @@
+.alerts-border {
+    border: 3px #ff0000 solid;
+    
+    animation: blink 1s;
+    animation-iteration-count: 100;
+}
+@keyframes blink { 70% { border-color:#fff ; }  }
