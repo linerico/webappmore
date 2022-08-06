@@ -15,7 +15,6 @@ const PemantauanComp = () => {
     const idPabrik = localStorage.getItem("activePabrik")
     const idMesin = localStorage.getItem("activeMesin")
     var myB = false
-    let myTime
     const getMonitor = async() => {
         try{
             // console.log("Masuk ke get Monitor")
@@ -64,13 +63,11 @@ const PemantauanComp = () => {
 
     useEffect(() => {
         const interval = setInterval(()=>{
-            // console.log("Blink : ", myB)
             getStatusMesin()
             myBlink()
             getMonitor()
-            getStatusMesin()
             // console.log("Sts Mesis", stsMesin)
-        }, 1000);
+        }, 2000);
         return () => clearInterval(interval)
     }, [])
     if(stsMesin){

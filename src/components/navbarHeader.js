@@ -107,6 +107,10 @@ const NavbarHeader = (props) => {
         getDetailPabrik()
         getDetailMesin()
         getStatusMesin()
+        const interval = setInterval(()=>{
+            getStatusMesin()
+        }, 2000);
+        return () => clearInterval(interval)
     }, [])
 
     return (
@@ -207,7 +211,7 @@ const NavbarHeader = (props) => {
                                 <p className='mb-0'>Tipe : {mesin.tipe_mesin}</p>
                                 <p className='mb-0'>Merek : {mesin.merek_mesin}</p>
 
-                                <div style={stsMesin?{color: "green"}:{color: "red"}}>{stsMesin? 'ONLINE' : 'OFFLINE' }<button className='btn btn-sm btn-primary rounded-pill my-1' style={{marginLeft:"10px"}} onClick={() => getStatusMesin()}>Refresh</button></div>
+                                <div style={stsMesin?{color: "green"}:{color: "red"}}>{stsMesin? 'ONLINE' : 'OFFLINE' }</div>
                             </div>
                         </div>
 
