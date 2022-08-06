@@ -29,7 +29,7 @@ function
                 onHide={handleClose}
             >
                 <Modal.Header>
-                    <Modal.Title className='text-center w-100 fw-bold'>Konfirmasi</Modal.Title>
+                    <Modal.Title className='text-center w-100 fw-bold'>Anggota</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className='text-center fw-bold'>
                     <Person

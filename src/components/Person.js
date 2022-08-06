@@ -95,7 +95,7 @@ function Person(props) {
     return (
         <>
             <div>
-                <h4>Owner</h4>
+                <h4>Pemilik</h4>
                 <div>
                     {owner.map((row, i) => (
                         <div key={i} className='person d-flex w-100 justify-content-between'>
