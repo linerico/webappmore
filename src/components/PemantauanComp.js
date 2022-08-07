@@ -70,7 +70,7 @@ const PemantauanComp = () => {
         }, 2000);
         return () => clearInterval(interval)
     }, [])
-    if(true){
+    if(stsMesin){
         return (
             <div className='monitor d-flex container'>
                 {monitor.map((menuItem, key) => {
