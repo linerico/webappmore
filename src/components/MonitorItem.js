@@ -17,7 +17,12 @@ function MonitorItem({index, data, satuan, ket, alarm, enableAlarm, fullData, ba
 
   return (
     // <div className=''>
-      <div className={ alarm && enableAlarm  ?' col-2 mx-auto text-center mt-3 border my-border-radius shadow bg-danger text-white':'col-2 mx-auto text-center mt-3 border my-border-radius shadow'}
+      <div 
+        className= { ket=="Status" && data == 2 || data ==3 ? 'col-2 mx-auto text-center mt-3 border my-border-radius shadow bg-warning text-white'
+          : alarm && enableAlarm  ?
+          'col-2 mx-auto text-center mt-3 border my-border-radius shadow bg-danger text-white':
+          'col-2 mx-auto text-center mt-3 border my-border-radius shadow'
+        }
       // style={alarm && enableAlarm ? {animation: "blink"}:{}}
       >
         <button className='btn' onClick={()=>setShow(true)}>
@@ -25,10 +30,10 @@ function MonitorItem({index, data, satuan, ket, alarm, enableAlarm, fullData, ba
         </button>
         
         <div className='isiData mt-3'>
-          <h1 className='fw-bold fs-1'>{ket=="Status"? (data==1?"RUN":"STOP") : (ket=="Running Hour"?`${formatNum(Math.floor(data/60))}:${formatNum(data%60)}`: data)}</h1>
+          <h1 className='fw-bold fs-1'>{ket=="Status"? (data==1?"RUN": data == 0 ? "STOP" : data == 2 ? "START UP" : "COOL DOWN") : (ket=="Running Hour"?`${formatNum(Math.floor(data/60))}:${formatNum(data%60)}`: data)}</h1>
         </div>
         <div className='keterangan mt-3'>
-          <h3 className='fw-bold fs-4'>{satuan}</h3>
+          <h3 className='fw-bold fs-4'>{ket=="Status"? "." : satuan}</h3>
           <h4 className='fw-bold fs-5'>{ket}</h4>
         </div>
 
