@@ -19,7 +19,7 @@ function MonitorItem({index, data, satuan, ket, alarm, enableAlarm, fullData, ba
     // <div className=''>
       <div 
         className= { ket=="Status" && data == 2 || data ==3 ? 'col-2 mx-auto text-center mt-3 border my-border-radius shadow bg-warning text-white'
-          : alarm && enableAlarm  ?
+          : ket=="Status" && data == 1 ? 'col-2 mx-auto text-center mt-3 border my-border-radius shadow bg-success text-white': alarm && enableAlarm  ?
           'col-2 mx-auto text-center mt-3 border my-border-radius shadow bg-danger text-white':
           'col-2 mx-auto text-center mt-3 border my-border-radius shadow'
         }

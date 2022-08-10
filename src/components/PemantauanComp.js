@@ -93,8 +93,9 @@ const PemantauanComp = () => {
         )
     } else{
         return (
-            <div className='monitor d-flex container'>
+            <div className='monitor'>
                 <h1>Mesin Offline</h1>
+                <p>Silakan menghubungi teknisi lapangan untuk info lebih lanjut</p>
             </div>
         )
     }
