@@ -1,5 +1,9 @@
+/* eslint-disable react/jsx-no-undef */
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Button, Tab } from 'bootstrap'
+import { Tabs } from 'react-bootstrap'
+import ReactApexChart from 'react-apexcharts'
 
 const baseUrl = 'https://cors-everywhere.herokuapp.com/http://moreapp-env.eba-ep9ahmfp.ap-southeast-1.elasticbeanstalk.com'
 // const baseUrl = 'http://127.0.0.1:5000'
@@ -16,6 +20,67 @@ function LaporanComp() {
     const [laporan, setLaporan] = useState([])
     const [rapLaporan, setRapLaporan] = useState([])
     const [nTemp, setNTemp] = useState()
+    const [chart, setChart] = useState({
+        series: [{
+            name: 'Speed',
+            data: [
+                { x: 1660873101309, y: 0 }
+            ]
+        }],  
+        options: {
+            chart: {
+                type: 'line',
+                stacked: false,
+                height: 350,
+                zoom: {
+                    type: 'x',
+                    enabled: true,
+                    autoScaleYaxis: true
+                },
+                toolbar: {
+                    autoSelected: 'zoom'
+                }
+            },
+            dataLabels: {
+                enabled: true
+            },
+            markers: {
+                size: 0,
+            },
+            title: {
+                text: 'Speed',
+                align: 'left'
+            },
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shadeIntensity: 1,
+                    inverseColors: false,
+                    opacityFrom: 0.5,
+                    opacityTo: 0,
+                    stops: [0, 90, 100]
+                },
+            },
+            yaxis: {
+                labels: {
+                },
+                title: {
+                    text: 'rpm'
+                },
+            },
+            xaxis: {
+                type: 'datetime',
+            },
+            tooltip: {
+                shared: false,
+            // y: {
+            //   formatter: function (val) {
+            //     return (val / 1000000).toFixed(0)
+            //   }
+            // }
+            }
+        },
+    })
     const getVariabel = async() => {
         const res = await axios.get(`${baseUrl}/pabrik/${idPabrik}/mesin/${idMesin}/laporan`, {
             headers: {
@@ -62,20 +127,79 @@ function LaporanComp() {
             }
         }
     }
+    const getChart = async() => {
+        const raw = {
+            nama: picVariabel,
+            start,
+            stop
+        }
+        try{
+            const res = await axios.post(`${baseUrl}/pabrik/${idPabrik}/mesin/${idMesin}/laporanchart`, raw, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            console.log(res.data.data.laporan)
+            setChart({
+                series: [res.data.data.laporan],
+                options: {
+                    chart: {
+                        type: 'line',
+                        stacked: false,
+                        height: 350,
+                        zoom: {
+                            type: 'x',
+                            enabled: true,
+                            autoScaleYaxis: true
+                        },
+                        toolbar: {
+                            autoSelected: 'zoom'
+                        }
+                    },
+                    dataLabels: {
+                        enabled: true
+                    },
+                    markers: {
+                        size: 0,
+                    },
+                    title: {
+                        text: picVariabel,
+                        align: 'left'
+                    },
+                    fill: {
+                        type: 'gradient',
+                        gradient: {
+                            shadeIntensity: 1,
+                            inverseColors: false,
+                            opacityFrom: 0.5,
+                            opacityTo: 0,
+                            stops: [0, 90, 100]
+                        },
+                    },
+                    yaxis: {
+                        labels: {
+                        },
+                        title: {
+                            // text: 
+                        },
+                    },
+                    xaxis: {
+                        type: 'datetime',
+                    },
+                    tooltip: {
+                        shared: false,
+                    // y: {
+                    //   formatter: function (val) {
+                    //     return (val / 1000000).toFixed(0)
+                    //   }
+                    // }
+                    }
+                },
+            })
+        } catch(err) {
 
-    // const perapian = () => {
-    //     let myLaporan = []
-    //     const n = laporan.length
-    //     // console.log(n)
-    //     for (let i=0; i<n; i++) {
-    //         if(findIndexLaporan(laporan[i], picVariabel)!=undefined){
-    //             myLaporan.push(laporan[i])
-    //         }
-            
-    //     }
-    //     // console.log(myLaporan)
-    //     setRapLaporan(myLaporan)
-    // }
+        }
+    }
     const getLaporan = async() => {
         // convertTimeStamptoDate(start)
         setStop(parseInt(stop)+86400000)
@@ -104,29 +228,48 @@ function LaporanComp() {
             
             // perapian()
         } catch(err) {
-            console.log(err)
-
-            if(err.response.status == 400){
-                const kosong = [{
-                    id_laporan: "",
-                    id_mesin: idMesin,
-                    laporan: [
-                        {
-                            nama: "null",
-                            value: null,
-                            satuan:"null"
-                        }
-                    ],
-                    timestamp: ""
-                }]
-                setLaporan(kosong)
-                setPicNo(0)
-                console.log(kosong)
-            }
+            const kosong = [{
+                id_laporan: "asas",
+                id_mesin: idMesin,
+                laporan: [
+                    {
+                        nama: "null",
+                        value: 0,
+                        satuan:"null"
+                    },
+                ],
+                timestamp: ""
+            }]
+            setLaporan(kosong)
+            setPicNo(0)
+            console.log("Get Laporan Error : ", err)
+            
+            // console.log(kosong)
+            // if(err.response.status == 400){
+            //     const kosong = [{
+            //         id_laporan: "",
+            //         id_mesin: idMesin,
+            //         laporan: [
+            //             {
+            //                 nama: "null",
+            //                 value: null,
+            //                 satuan:"null"
+            //             }
+            //         ],
+            //         timestamp: ""
+            //     }]
+            //     setLaporan(kosong)
+            //     setPicNo(0)
+            //     console.log(kosong)
+            // }
             
         }
     }
 
+    const callLaporan = async()=> {
+        getLaporan()
+        getChart()
+    }
     useEffect(() => {
         getVariabel()
     }, [])
@@ -157,50 +300,46 @@ function LaporanComp() {
                 </div>
 
                 <div className='col-3'>
-                    <button className='btn btn-primary w-100' onClick={(e) => getLaporan()}>Tampilkan</button>
+                    <button className='btn btn-primary w-100' onClick={(e) => callLaporan()}>Tampilkan</button>
                 </div>
             </div>
-
             <div className='mt-5'>
-                <table className="table">
-                    <thead>
-                        <tr>
-                            {/* <th scope="col">#</th> */}
-                            <th scope="col">Waktu Pencatatan</th>
-                            <th scope="col">Hasil</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {   
-                            laporan.map((row, i) => (
-                                
-                                (row.laporan[picNo].value != undefined) ? 
+                <Tabs
+                    defaultActiveKey="TableView"
+                >
+                    <Tab eventKey="TableView" title="Table View">
+                        <div className='mt-5'>
+                            <table className="table">
+                                <thead>
                                     <tr>
-                                        {/* <th scope='row'>{i}</th> */}
-                                        <td>{convertTimeStamptoDate(row.timestamp)}</td> 
-                                        <td>{`${row.laporan[picNo].value} (${row.laporan[picNo].satuan})`}</td>
+                                        {/* <th scope="col">#</th> */}
+                                        <th scope="col">Waktu Pencatatan</th>
+                                        <th scope="col">Hasil</th>
                                     </tr>
-                                    :<></>
-                            ))
-                        }
-                        {/* <tr>
-                            <th scope="row">1</th>
-                            <td>dummy date</td>
-                            <td>dummy data</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>dummy date</td>
-                            <td>dummy data</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>dummy date</td>
-                            <td>dummy data</td>
-                        </tr> */}
-                    </tbody>
-                </table>
+                                </thead>
+                                <tbody>
+                                    {   
+                                        laporan.map((row, i) => (
+                                            
+                                            (row.laporan[picNo].value != undefined) ? 
+                                                <tr>
+                                                    <td>{convertTimeStamptoDate(row.timestamp)}</td> 
+                                                    <td>{`${row.laporan[picNo].value} (${row.laporan[picNo].satuan})`}</td>
+                                                </tr>
+                                                :<></>
+                                        ))
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </Tab>
+                    <Tab eventKey="ChartView" title="Chart View">
+                        <ReactApexChart options={chart.options} series={chart.series} type="area" height={500}  />
+                    </Tab>
+                </Tabs>
             </div>
+
+            
         </div>
     )
 }
