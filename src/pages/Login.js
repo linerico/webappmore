@@ -63,7 +63,7 @@ const Login = () =>{
 
             <input value={email} name='email' className='form-control rounded-pill' type='email' placeholder='Alamat Email' onChange={(e) => setEmail(e.target.value)}/>
             <input value={password} name='password' className='form-control rounded-pill mt-3 mb-3' type='password' placeholder='Kata Sandi' onChange={(e) => setPassword(e.target.value)}/>
-            <p className='text-end'><Link to='/forgotpassword'>Lupa Kata Sandi?</Link></p>
+            {/* <p className='text-end'><Link to='/forgotpassword'>Lupa Kata Sandi?</Link></p> */}
             <br />
             {isError && (
               <div>
